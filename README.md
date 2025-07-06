@@ -1,4 +1,4 @@
-# 🛍️ Shared Wishlist App
+# 🛍️  Wishlist App
 
 A collaborative web app that lets multiple users create, manage, and interact with shared wishlists in real-time — perfect for group gift planning, travel shopping, and more!
 
