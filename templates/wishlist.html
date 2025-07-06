@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wishlist - {{ wishlist.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <h2>{{ wishlist.name }}</h2>
+        <a href="{{ url_for('dashboard') }}" style="color: white;">Back to Dashboard</a>
+    </div>
+
+    <div class="container">
+        <!-- Show flash messages -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+              {% for message in messages %}
+                <li style="color: green;">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <h3>Products in Wishlist</h3>
+        {% for product in wishlist.products %}
+            <div style="margin-bottom: 10px;">
+                <strong>{{ product.name }}</strong> - ₹{{ product.price }}
+                <a href="{{ product.link }}" target="_blank">View</a>
+
+                <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        {% else %}
+            <p>No products in this wishlist yet.</p>
+        {% endfor %}
+
+        <hr>
+        <h3>Add Product</h3>
+        <form method="POST">
+            <input type="text" name="product_name" placeholder="Product name" required>
+            <input type="text" name="product_price" placeholder="Price (₹)" required>
+            <input type="url" name="product_link" placeholder="Product link (URL)" required>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+</body>
+</html>

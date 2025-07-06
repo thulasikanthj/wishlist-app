@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <h2>Welcome, {{ user.username }}</h2>
+        <a href="{{ url_for('logout') }}" style="color: white;">Logout</a>
+    </div>
+
+    <div class="container">
+        <h3>Your Wishlists</h3>
+
+        <!-- Show all wishlists -->
+        {% for wishlist in wishlists %}
+            <div style="margin-bottom: 10px;">
+                <a href="{{ url_for('view_wishlist', wishlist_id=wishlist.id) }}">
+                    {{ wishlist.name }}
+                </a>
+                <form action="{{ url_for('delete_wishlist', wishlist_id=wishlist.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+
+        <hr>
+        <h3>Create a New Wishlist</h3>
+        <form method="POST">
+            <input type="text" name="wishlist_name" placeholder="Enter wishlist name" required>
+            <button type="submit">Add Wishlist</button>
+        </form>
+        <ul>
+            <li style="color: green;">{{ message }}</li>
+        </ul>
+    </div>
+</body>
+</html>
